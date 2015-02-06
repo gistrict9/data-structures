@@ -29,6 +29,7 @@ var LinkedList = function(){
 
   list.contains = function(target){
     var result = false;
+    debbuger;
 
     function check (node){
       if(node === null){

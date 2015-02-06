@@ -3,23 +3,50 @@ var Tree = function(value){
   newTree.value = value;
 
   // your code here
-  newTree.children = null;  // fix me
+  newTree.children = [];  // fix me
+
+  extend(newTree, treeMethods);
 
   return newTree;
 };
 
 
-
+var extend = function(to, from) {
+  for(var key in from) {
+    to[key] = from[key];
+  }
+  return to;
+};
 
 
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
-
+  var node = {};
+  node.value = value;
+  this.children.push(node);
 };
 
 treeMethods.contains = function(target){
+  var node = this;
 
+  var findValue = function (val, node) {
+
+    var results = false;
+
+    if(node.value === val){
+      debugger;
+      results = true;
+    }else if(node.children !== undefined){
+      for(var i = 0; i < node.children.length; i++){
+        var res = findValue(target, node.children[i]);
+        debugger;
+        return res;
+      }
+    }
+    return results;
+  };
+  return findValue(target, node);
 };
 
 
