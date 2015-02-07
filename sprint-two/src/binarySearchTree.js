@@ -3,7 +3,6 @@ var BinarySearchTree = function(value){
   newBinarySearchTree.value = value;
   newBinarySearchTree.left = null;
   newBinarySearchTree.right = null;
-
   extend(newBinarySearchTree, searchTreeMethods);
 
   return newBinarySearchTree;
@@ -19,9 +18,8 @@ var extend = function(to, from) {
 var searchTreeMethods = {};
 
 searchTreeMethods.insert = function(value) {
-  // new node
   var newTree = BinarySearchTree(value);
-  // check newBinarySearchTree
+
   if (value > this.value) {
     if (this.right === null) {
       this.right = newTree;
@@ -47,7 +45,6 @@ searchTreeMethods.contains = function(value) {
   var checkTree = function(val, tree){
     var results = false;
 
-      debugger;
     if(tree.value === val){
       results = true;
     }else if(tree.right !== null && tree.value < val){
@@ -59,24 +56,26 @@ searchTreeMethods.contains = function(value) {
     }else{
       results = results;
     }
-
     return results;
   };
-
   return checkTree(value, tree);
-
 };
 
 searchTreeMethods.depthFirstLog = function(cb) {
+  var topTree = this;
 
+  var traverse = function(tree) {
+    cb(tree.value);
+
+    if(tree.left !== null){
+      traverse(tree.left);
+    }
+    if(tree.right !== null){
+      traverse(tree.right);
+    }
+  };
+  traverse(topTree);
 };
-
-//     binarySearchTree.insert(2);
-//     binarySearchTree.insert(3);
-//     binarySearchTree.insert(7);
-//     binarySearchTree.insert(6);
-//     expect(binarySearchTree.left.right.value).to.equal(3);
-//     expect(binarySearchTree.right.left.value).to.equal(6);
 
 /*
  * Complexity: What is the time complexity of the above functions?
