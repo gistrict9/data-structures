@@ -9,7 +9,7 @@ HashTable.prototype.insert = function(k, v){
   if(this._storage[i] !== undefined){
     var storage =  this._storage[i];
     this._storage[i] = [storage, [k, v]];
-    debugger;
+
   }else{
     this._storage[i] = [k, v];
   }
@@ -22,7 +22,7 @@ HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
 
   var storage = this._storage[i];
-  debugger;
+
   if(i !==3 ){
     for(var j = 0; j<storage.length; j++){
       if(storage[j][0] === k){
