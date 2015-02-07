@@ -32,7 +32,7 @@ treeMethods.contains = function(target){
     }
     for(var i = 0; i < node.children.length; i++){
       var res = findValue(target, node.children[i]);
-      results = results ||res;
+      results = results || res;
     }
     return results;
   };
