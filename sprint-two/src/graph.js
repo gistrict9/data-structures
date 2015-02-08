@@ -1,14 +1,12 @@
-
-
 var Graph = function(){
   this.nodeList = [];
+  this.edges = [];
 };
 
 Graph.prototype.addNode = function(node){
   var graphNode = {};
   graphNode.link = null;
   graphNode.value = node;
-
   this.nodeList.push(graphNode);
 };
 
@@ -25,7 +23,6 @@ Graph.prototype.contains = function(node){
 };
 
 Graph.prototype.removeNode = function(node){
-
   for(var i = 0; i<this.nodeList.length; i++) {
     var currentNode = this.nodeList[i];
     if(currentNode.value === node){
@@ -33,34 +30,16 @@ Graph.prototype.removeNode = function(node){
     }
   }
 };
-                                  //(puppies, sutsuma)
+
 Graph.prototype.hasEdge = function(fromNode, toNode){
-  // var node1 = this.nodeList[0];
-  // var node2 = this.nodeList[2];
+  var edgeTuple = this.edges;
 
-  var node1;
-  var node2;
-
-  for(var i=0; i<this.nodeList.length; i++){
-    var currentNode = this.nodeList[i];
-    if(currentNode.value === fromNode){
-      node1 = currentNode;
-    }
-  }
-
-  for(var i=0; i<this.nodeList.length; i++){
-    var currentNode = this.nodeList[i];
-    if(currentNode.value === toNode){
-      node2 = currentNode;
-    }
-  }
-  if(node1.link !== null && node2.link !== null){
-    if(node1.link.value === toNode && node2.link.value === fromNode ){
+  for (var i=0; i < edgeTuple.length; i++) {
+    if(edgeTuple[i][0]===fromNode && edgeTuple[i][1]===toNode){
       return true;
     }
-  }else{
-    return false;
   }
+  return false;
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
@@ -84,6 +63,8 @@ Graph.prototype.addEdge = function(fromNode, toNode){
   node1.link = node2;
   node2.link = node1;
 
+  this.edges.push([node1.value, node2.value]);
+  this.edges.push([node2.value, node1.value]);
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
@@ -107,6 +88,18 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
   node1.link = null;
   node2.link = null;
 
+  var edgeTuple = this.edges;
+
+  for (var i=0; i < edgeTuple.length; i++) {
+    if(edgeTuple[i][0]===fromNode && edgeTuple[i][1]===toNode){
+      edgeTuple.splice(i,1);
+    }
+  }
+  for (var i=0; i < edgeTuple.length; i++) {
+    if(edgeTuple[i][0]===toNode && edgeTuple[i][1]===fromNode){
+      edgeTuple.splice(i,1);
+    }
+  }
 };
 
 Graph.prototype.forEachNode = function(cb){
